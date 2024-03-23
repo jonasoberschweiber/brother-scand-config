@@ -22,8 +22,13 @@
 #
 ################################################################################
 
-# Set a destination file name and then just call our text_pdf script. 
+# Set a destination file name to a file named for the current time, in the
+# destination directory.
 
-export COMBINED_OUTPUT_FILENAME="tmp/$(date "+%Y-%m-%d_%H%M%S")"
+if [ ! -d $1 ]; then
+  echo "$1 is not a valid directory"
+fi
+
+export COMBINED_OUTPUT_FILENAME="$1/$(date "+%Y-%m-%d_%H%M%S")"
 
 . scripts/text_pdf.sh
