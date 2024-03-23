@@ -1,0 +1,47 @@
+define-preset text
+scan.param C RLENGTH
+scan.param M TEXT
+scan.param P A4
+scan.param R 300,300
+
+define-preset grayjpeg
+scan.param C JPEG
+scan.param M GRAY64
+scan.param P A4
+scan.param R 300,300
+
+define-preset colorjpeg
+scan.param C JPEG
+scan.param M CGRAY
+scan.param P A4
+scan.param R 300,300
+
+ip 192.168.1.2
+
+preset text FILE
+hostname sw-pngx
+scan.func scripts/text_pdf_file.sh
+
+preset text EMAIL
+hostname 1-BW-RecipientA
+scan.func scripts/email_text_pdf.sh a@a.com
+
+preset grayjpeg EMAIL
+hostname 2-Gray-RecipientA
+scan.func scripts/email_jpeg_pdf.sh a@a.com
+
+preset colorjpeg EMAIL
+hostname 3-Color-RecipientA
+scan.func scripts/email_jpeg_pdf.sh a@a.com
+
+preset text EMAIL
+hostname 4-BW-RecipientB
+scan.func scripts/email_text_pdf.sh b@b.com
+
+preset grayjpeg EMAIL
+hostname 5-Gray-RecipientB
+scan.func scripts/email_jpeg_pdf.sh b@b.com
+
+preset colorjpeg EMAIL
+hostname 6-Color-RecipientB
+scan.func scripts/email_jpeg_pdf.sh b@b.com
