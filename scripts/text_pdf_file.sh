@@ -30,5 +30,6 @@ if [ ! -d $1 ]; then
 fi
 
 export COMBINED_OUTPUT_FILENAME="$1/$(date "+%Y-%m-%d_%H%M%S")"
+export NO_OCR=0
 
 . scripts/text_pdf.sh

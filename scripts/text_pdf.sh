@@ -26,6 +26,7 @@
 # and uses tesseract to create an OCRed PDF file. In addition to the environment
 # variables above, it expects a COMBINED_OUTPUT_FILENAME variable to contain the
 # destination filename _without_ the PDF extension!
+# Set NO_OCR=1 to skip OCR and create a plain PDF. This can save a lot of time.
 
 set -x -e
 
@@ -45,7 +46,11 @@ done
 convert $(for i in $(seq 1 $SCANNER_PAGE); do echo tmp/${SCANNER_SCANID}_$i.tiff; done) tmp/${SCANNER_SCANID}_combined.tiff
 
 # And run tesseract on them.
-tesseract -l deu tmp/${SCANNER_SCANID}_combined.tiff ${COMBINED_OUTPUT_FILENAME} pdf
+if [ "$NO_OCR" -eq "1" ]; then
+  convert tmp/${SCANNER_SCANID}_combined.tiff ${COMBINED_OUTPUT_FILENAME}.pdf
+else
+  tesseract -l deu tmp/${SCANNER_SCANID}_combined.tiff ${COMBINED_OUTPUT_FILENAME} pdf
+fi
 
 rm tmp/${SCANNER_SCANID}_combined.tiff
 rm tmp/${SCANNER_SCANID}_*.tiff
