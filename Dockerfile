@@ -37,6 +37,7 @@ RUN echo "Installing packages" \
     mutt \
     imagemagick \
     ca-certificates \
+    pdftk \
   && echo "Done installing packages"
 
 ADD scripts /brother-scand/scripts
